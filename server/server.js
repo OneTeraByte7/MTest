@@ -25,15 +25,15 @@ mongoose
   });
 
 // Routes
-app.use("/api/auth", require("./server/routes/authRoutes"));           
-app.use("/api/tests", require("./server/routes/testRoutes"));         
-app.use("/api/questions", require("./server/routes/questionRoutes")); 
-app.use("/api/answers", require("./server/routes/answerRoutes"));     
-app.use("/api/results", require("./server/routes/resultRoutes"));     
+app.use("/api/auth", require("./routes/authRoutes"));           
+app.use("/api/tests", require("./routes/testRoutes"));         
+app.use("/api/questions", require("./routes/questionRoutes")); 
+app.use("/api/answers", require("./routes/answerRoutes"));     
+app.use("/api/results", require("./routes/resultRoutes"));     
 
 // Health Check
 app.get("/", (req, res) => {
-  res.status(200).send("✅ Server is up and running.");
+  res.status(200).send("Server is up and running.");
 });
 
 // Start Server
