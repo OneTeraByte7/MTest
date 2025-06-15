@@ -10,28 +10,33 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
-// Connect to MongoDB
+// MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB Connection Successful!"))
+  .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => {
-    console.error("MongoDB Connection Error:", err.message);
+    console.error("❌ MongoDB Connection Failed:", err.message);
     process.exit(1);
   });
 
 // Routes
-app.use("/api/auth", require("./routes/authRoutes"));   // Signup/Login
-app.use("/api/tests", require("./routes/testRoutes"));  // Test APIs
+app.use("/api/auth", require("./server/routes/authRoutes"));           
+app.use("/api/tests", require("./server/routes/testRoutes"));         
+app.use("/api/questions", require("./server/routes/questionRoutes")); 
+app.use("/api/answers", require("./server/routes/answerRoutes"));     
+app.use("/api/results", require("./server/routes/resultRoutes"));     
 
-// Health check route
+// Health Check
 app.get("/", (req, res) => {
-  res.send(" Server is live.");
+  res.status(200).send("✅ Server is up and running.");
 });
 
-// Start server
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+// Start Server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
